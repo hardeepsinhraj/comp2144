@@ -41,7 +41,7 @@
         const createScene = function() {
             // STEP 8a: Create a new BABYLON scene, passing in the engine as an argument
             const scene = new BABYLON.Scene(engine);
-            const box = BABYLON.MeshBuilder.CreateBox("box", {}); // Create box mesh object
+            const box = BABYLON.MeshBuilder.CreateBox("box", {}, scene); // Create box mesh object
 
             const sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {}, scene); // Create sphere mesh object
             sphere.position.y = 2; 
@@ -49,6 +49,18 @@
             material.diffuseColor = new BABYLON.Color3(1.0, 0.0, 0.0);
             sphere.material = material;
 
+            //add more mesh object
+            const ground = BABYLON.MeshBuilder.CreateGround("ground", {width:10, height:10}, scene); // Create ground mesh object
+            ground.position.y = -2;
+            let groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene); 
+            groundMaterial.diffuseColor = new BABYLON.Color3(0.0, 1.0, 0.0);
+            ground.material = groundMaterial;
+
+            const cylinder = BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:3, diameter:1}, scene); // Create cylinder mesh object
+            cylinder.position.x = 3;
+
+            const torus = BABYLON.MeshBuilder.CreateTorus("torus", {thickness:0.5, diameter:2}, scene); // Create torus mesh object
+            torus.position.x = -3;
             // const camera = new BABYLON.ArcRotateCamera("camera", -Math.PI / 2, Math.PI / 2.5, 15, new BABYLON.Vector3(0, 0, 0)); // Add Arc Rotate Camera
             // camera.attachControl(canvas, true); // Attach camera control to the canvas
             // Replace the above camera with the below XR if you have a headset
