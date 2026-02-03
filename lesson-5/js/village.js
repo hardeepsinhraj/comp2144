@@ -86,7 +86,6 @@ const createScene = async function() {
     const cartMat = new BABYLON.StandardMaterial("cartMat");
     cartMat.diffuseColor = new BABYLON.Color3(1, 0, 1);
     cart.material = cartMat;
-    
 
     // STEP 2a: The local coordinates origin of the cube car is the reference point for scaling and positioning it within the scene - move it up 0.5 so that it sits on the ground
     cart.position = new BABYLON.Vector3(1, 0.5, -0.75);
@@ -98,35 +97,26 @@ const createScene = async function() {
     
     // STEP 4a: Drop the wheel into the scene using the ImportMeshAsync method
     const wheel1 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "wheel1.glb").then((result) => {
-
-        //Do this stuff after the mesh has loaded
+        // Do this stuff after the mesh has loaded
         const wheelMesh = result.meshes[0];
-
-        //Grab the bounding box
+        // Grab the bouding box
         const wheelBounds = result.meshes[1];
         wheelBounds.showBoundingBox = true;
-
         // wheelMesh.position = new BABYLON.Vector3(0, 0, 0);
-        wheelMesh.scaling = new BABYLON.Vector3(100, 100, 100 ); 
-        // wheelMesh.rotatioin.y = BABYLON.Tools.ToRadians(90);
-
-        //attach the wheel to the cart
+        wheelMesh.scaling = new BABYLON.Vector3(100, 100, 100);
+        // wheelMesh.rotate.y = BABYLON.Tools.ToRadians(90);
+        // Attach the wheel to the cart mesh (parent)
         wheelMesh.parent = cart;
-
-        //position the wheel with respect to the cart
+        // Position wheel with respect to centre of cart mesh
         wheelMesh.position = new BABYLON.Vector3(0, -0.5, -0.5);
-        
-        return wheelMesh;
-        
     }).catch((error) => {
-        //opps, the mesh  didn't load for some reason
-        console.error("Error loading mesh:" + error);
+        // Oops, the mesh didn't load for some reason
+        console.error("Error loading mesh: " + error);
         return null;
     });
 
     // STEP 4b: The wheel is 4 units radius, which is too big again - so scale it down to 1/10 the size above
     // STEP 4c: Add a bounding box to the wheel to see the dimensions of the mesh (this can be accessed via the second mesh in the result.meshes array, result.meshes[1])
-
 
     // STEP 5a: Now we need to be able to attach the wheel to the car...so make the car the parent of the wheel (inside the promise above)
     // STEP 5b: Position the wheel with respect to its parent - but now the wheel is using the coordinates of the cube as its reference point, rather than the scene origin
@@ -134,33 +124,24 @@ const createScene = async function() {
     // STEP6a: Go back to TinkerCAD and export another wheel, but change the color
     // STEP6b: Copy the code in STEP 4 and paste it below, change the the const name and filename to match the new wheel
     // STEP6c: Change the position of the wheel so that it is on the other side of the car
-    const wheel2 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "wheel2.glb").then((result) => {
-
-        //Do this stuff after the mesh has loaded
+        const wheel2 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "wheel2.glb").then((result) => {
+        // Do this stuff after the mesh has loaded
         const wheelMesh = result.meshes[0];
-
-        //Grab the bounding box
+        // Grab the bouding box
         const wheelBounds = result.meshes[1];
         wheelBounds.showBoundingBox = true;
-
         // wheelMesh.position = new BABYLON.Vector3(0, 0, 0);
-        wheelMesh.scaling = new BABYLON.Vector3(100, 100, 100 ); 
-        // wheelMesh.rotatioin.y = BABYLON.Tools.ToRadians(90);
-
-        //attach the wheel to the cart
+        wheelMesh.scaling = new BABYLON.Vector3(100, 100, 100);
+        // wheelMesh.rotate.y = BABYLON.Tools.ToRadians(90);
+        // Attach the wheel to the cart mesh (parent)
         wheelMesh.parent = cart;
-
-        //position the wheel with respect to the cart
+        // Position wheel with respect to centre of cart mesh
         wheelMesh.position = new BABYLON.Vector3(0, -0.5, 0.5);
-        
-        return wheelMesh;
-        
     }).catch((error) => {
-        //opps, the mesh  didn't load for some reason
-        console.error("Error loading mesh:" + error);
+        // Oops, the mesh didn't load for some reason
+        console.error("Error loading mesh: " + error);
         return null;
     });
-
 
     // STEP 7: The car's wheels are stuck in the ground - we need to lift the car up so that it sits on the ground
     cart.position.y = 0.7;
