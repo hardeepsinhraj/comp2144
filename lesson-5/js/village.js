@@ -143,8 +143,48 @@ const createScene = async function() {
         return null;
     });
 
+    const title = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "title.glb").then((result) => {
+        // Do this stuff after the mesh has loaded
+        const wheelMesh = result.meshes[0];
+        // Grab the bouding box
+        const wheelBounds = result.meshes[1];
+        wheelBounds.showBoundingBox = true;
+        // wheelMesh.position = new BABYLON.Vector3(0, 0, 0);
+        wheelMesh.scaling = new BABYLON.Vector3(50, 50, 70);
+        // wheelMesh.rotate.y = BABYLON.Tools.ToRadians(90);
+        // Attach the wheel to the cart mesh (parent)
+        wheelMesh.parent = cart;
+        // Position wheel with respect to centre of cart mesh
+        wheelMesh.position = new BABYLON.Vector3(-6, -0.5, -2.6);
+    }).catch((error) => {
+        // Oops, the mesh didn't load for some reason
+        console.error("Error loading mesh: " + error);
+        return null;
+    });
+
+
     // STEP 7: The car's wheels are stuck in the ground - we need to lift the car up so that it sits on the ground
     cart.position.y = 0.7;
+
+      const title1 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "title.glb").then((result) => {
+        // Do this stuff after the mesh has loaded
+        const wheelMesh = result.meshes[0];
+        // Grab the bouding box
+        const wheelBounds = result.meshes[1];
+        wheelBounds.showBoundingBox = true;
+        // wheelMesh.position = new BABYLON.Vector3(0, 0, 0);
+        wheelMesh.scaling = new BABYLON.Vector3(10, 10, 10);
+        // wheelMesh.rotate.y = BABYLON.Tools.ToRadians(90);
+        // Attach the wheel to the cart mesh (parent)
+        wheelMesh.parent = cart;
+        // Position wheel with respect to centre of cart mesh
+        wheelMesh.position = new BABYLON.Vector3(0, -0.5, -0.5);
+    }).catch((error) => {
+        // Oops, the mesh didn't load for some reason
+        console.error("Error loading mesh: " + error);
+        return null;
+    });
+
 
     // STEP 8: Create a new animation object
     
@@ -169,14 +209,14 @@ const createScene = async function() {
 
     // STEP 13: Enable the WebXR experience, and walk around your scene using the provided VR headset
     // Check to see if WebXR (immersive-vr, specifically) is supported on this device
-    if (BABYLON.WebXRSessionManager.IsSessionSupportedAsync("immersive-vr")) {
-        const xr = await scene.createDefaultXRExperienceAsync({
-            floorMeshes: [ground],
-            optionalFeatures: true
-        });
-    } else {
-        console.log("WebXR is not supported on this device.");
-    }
+    // if (BABYLON.WebXRSessionManager.IsSessionSupportedAsync("immersive-vr")) {
+    //     const xr = await scene.createDefaultXRExperienceAsync({
+    //         floorMeshes: [ground],
+    //         optionalFeatures: true
+    //     });
+    // } else {
+    //     console.log("WebXR is not supported on this device.");
+    // }
 
     // Return the scene
     return scene;
