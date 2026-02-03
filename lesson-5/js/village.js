@@ -134,7 +134,6 @@ const createScene = async function() {
     // STEP6a: Go back to TinkerCAD and export another wheel, but change the color
     // STEP6b: Copy the code in STEP 4 and paste it below, change the the const name and filename to match the new wheel
     // STEP6c: Change the position of the wheel so that it is on the other side of the car
-      // STEP 4a: Drop the wheel into the scene using the ImportMeshAsync method
     const wheel2 = BABYLON.SceneLoader.ImportMeshAsync("", "./meshes/", "wheel2.glb").then((result) => {
 
         //Do this stuff after the mesh has loaded
@@ -189,14 +188,14 @@ const createScene = async function() {
 
     // STEP 13: Enable the WebXR experience, and walk around your scene using the provided VR headset
     // Check to see if WebXR (immersive-vr, specifically) is supported on this device
-    // if (BABYLON.WebXRSessionManager.IsSessionSupportedAsync("immersive-vr")) {
-    //     const xr = await scene.createDefaultXRExperienceAsync({
-    //         floorMeshes: [ground],
-    //         optionalFeatures: true
-    //     });
-    // } else {
-    //     console.log("WebXR is not supported on this device.");
-    // }
+    if (BABYLON.WebXRSessionManager.IsSessionSupportedAsync("immersive-vr")) {
+        const xr = await scene.createDefaultXRExperienceAsync({
+            floorMeshes: [ground],
+            optionalFeatures: true
+        });
+    } else {
+        console.log("WebXR is not supported on this device.");
+    }
 
     // Return the scene
     return scene;
