@@ -126,7 +126,7 @@ const createScene = async function() {
     
     
     // Function to create a randomly-coloured box mesh
-    function buildRandomBox() {
+    function buildRandomS() {
         const box = BABYLON.MeshBuilder.CreateBox("box", { size: 0.1 }, scene);
         // Move the box geometry up by half its height (0.05) and "freeze" that as the new zero point so the box is not embedded in the surface
         box.position.y = 0.05; 
